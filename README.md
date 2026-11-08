@@ -16,7 +16,7 @@ python web_lab.py --port 8765
 
 The optional interactive app opens at `http://127.0.0.1:8765`. Its comparison API uses a new in-memory database for each request and displays the unsafe and parameterized responses side by side. The server deliberately binds **only to loopback**. Stop it with Ctrl+C. Never expose it through port forwarding, a reverse proxy, or public hosting.
 
-**Expanded verification:** Ten tests include real loopback HTTP requests, controlled predicate comparisons, ordinary input equivalence, invalid syntax handling, and an input-length limit. No external website or database is contacted.
+**Expanded verification:** Eleven tests include real loopback HTTP requests, controlled predicate comparisons, ordinary input equivalence, invalid syntax handling, an input-length limit, and oversized-request rejection (HTTP 414). No external website or database is contacted.
 
 ## Findings and remediation
 
