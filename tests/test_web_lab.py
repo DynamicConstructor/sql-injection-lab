@@ -4,6 +4,7 @@ import threading
 import unittest
 from pathlib import Path
 from urllib.request import urlopen
+from urllib.error import HTTPError
 from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -37,6 +38,19 @@ class WebLabTests(unittest.TestCase):
                 data = json.load(response)
             self.assertEqual(data["parameterized"]["rows"], [["alice", "analyst"]])
             self.assertEqual(server.server_address[0], "127.0.0.1")
+        finally:
+            server.shutdown()
+            server.server_close()
+            worker.join(timeout=3)
+
+    def test_oversized_request_target_rejected(self):
+        server = make_server(0)
+        worker = threading.Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        try:
+            with self.assertRaises(HTTPError) as raised:
+                urlopen(f"http://127.0.0.1:{server.server_port}/?value=" + "a" * 2100, timeout=3)
+            self.assertEqual(raised.exception.code, 414)
         finally:
             server.shutdown()
             server.server_close()
