@@ -59,6 +59,8 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        if len(self.path) > 2048:
+            return self.send(414, json.dumps({"error": "Request target too long"}), "application/json")
         parsed = urlsplit(self.path)
         if parsed.path == "/":
             return self.send(200, PAGE, "text/html; charset=utf-8")
