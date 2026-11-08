@@ -1,5 +1,7 @@
 # SQL Injection: Vulnerable vs Parameterized Queries
 
+**Start here:** [Technical case study](docs/CASE-STUDY.md) · [Cloud verification](docs/VALIDATION.md) · [Reproducible demonstration](docs/DEMO-EVIDENCE.md)
+
 **Type:** Local educational security lab. **Scope:** Only the temporary in-memory SQLite database created by this repository. No external targets.
 
 ## Objective
