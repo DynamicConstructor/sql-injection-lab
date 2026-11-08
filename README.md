@@ -11,7 +11,12 @@ Python 3.10+; no dependencies.
 ```bash
 python lab.py
 python -m unittest discover -s tests -v
+python web_lab.py --port 8765
 ```
+
+The optional interactive app opens at `http://127.0.0.1:8765`. Its comparison API uses a new in-memory database for each request and displays the unsafe and parameterized responses side by side. The server deliberately binds **only to loopback**. Stop it with Ctrl+C. Never expose it through port forwarding, a reverse proxy, or public hosting.
+
+**Expanded verification:** Ten tests include real loopback HTTP requests, controlled predicate comparisons, ordinary input equivalence, invalid syntax handling, and an input-length limit. No external website or database is contacted.
 
 ## Findings and remediation
 
@@ -55,10 +60,3 @@ This is a **reproducible lab finding**, not a claim of discovering a flaw in a t
 
 ## GitHub summary
 Local SQLite lab showing a reproducible SQL injection flaw, fixed query, and regression tests.
-
-## Portfolio evidence and technical review
-
-- [Cloud validation report](docs/VALIDATION.md) — dated test results and limitations
-- [Technical case study](docs/CASE-STUDY.md) — problem, approach, engineering decisions, and next personal contribution
-
-The cloud run was AI-assisted; it does not establish Alexander's independent authorship. GitHub Actions may be unavailable due to an account-level billing restriction. Follow the local commands in the validation report to reproduce results.
